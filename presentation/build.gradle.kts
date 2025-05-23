@@ -62,7 +62,10 @@ dependencies {
 //    implementation(libs.androidx.lifecycle.service)
 //    implementation(libs.androidx.work.runtime.ktx)
 
+    // coil
+    implementation(libs.coil)
     implementation(libs.coil.compose)
+
     implementation(libs.timber)
 
     // Common ui

@@ -10,7 +10,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawing
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.staggeredgrid.LazyVerticalStaggeredGrid
 import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridCells
 import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridItemSpan
@@ -30,6 +29,8 @@ import androidx.paging.LoadState
 import androidx.paging.PagingData
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
+import coil.ImageLoader
+import coil.annotation.ExperimentalCoilApi
 import com.jddev.simpletouch.ui.foundation.topappbar.StUiTopAppBar
 import com.jddev.simpletouch.ui.utils.StUiPreview
 import com.jddev.simpletouch.ui.utils.StUiPreviewWrapper
@@ -38,14 +39,19 @@ import com.jscoding.simpleshop.presentation.components.ProductCard
 import com.jscoding.simpleshop.presentation.utils.getPreviewProduct
 import kotlinx.coroutines.flow.flowOf
 
+@OptIn(ExperimentalCoilApi::class)
 @Composable
 fun HomeScreen(
     viewModel: HomeViewModel = hiltViewModel(),
 ) {
     val products = viewModel.productPagingFlow.collectAsLazyPagingItems()
+    val context = LocalContext.current
     HomeScreen(
         products = products,
         onRefresh = {
+            val imageLoader = ImageLoader(context)
+            imageLoader.memoryCache?.clear()
+            imageLoader.diskCache?.clear()
             products.refresh()
         }
     )

@@ -13,9 +13,12 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
+import coil.request.CachePolicy
+import coil.request.ImageRequest
 import com.jddev.simpletouch.ui.utils.StUiPreview
 import com.jddev.simpletouch.ui.utils.StUiPreviewWrapper
 import com.jscoding.simpleshop.domain.model.Product
@@ -25,7 +28,7 @@ import com.jscoding.simpleshop.presentation.utils.getPreviewProduct
 fun ProductCard(
     modifier: Modifier = Modifier,
     product: Product,
-    onClick: () -> Unit = {}
+    onClick: () -> Unit = {},
 ) {
     Card(
         modifier = modifier
@@ -38,7 +41,12 @@ fun ProductCard(
     ) {
         Column {
             AsyncImage(
-                model = product.imageUrl,
+                model = ImageRequest.Builder(LocalContext.current)
+                    .data(product.imageUrl)
+                    .crossfade(true)
+                    .diskCachePolicy(CachePolicy.ENABLED) // Bật cache ảnh trên disk
+                    .memoryCachePolicy(CachePolicy.ENABLED) // Bật cache trong RAM
+                    .build(),
                 contentDescription = product.title,
                 modifier = Modifier
                     .fillMaxWidth()

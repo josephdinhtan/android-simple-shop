@@ -10,8 +10,6 @@ import javax.inject.Inject
 @HiltViewModel
 class HomeViewModel @Inject constructor(
     private val productRepository: ProductRepository,
-): ViewModel() {
-
-    val productPagingFlow = productRepository.getPagedProducts()
-        .cachedIn(viewModelScope)
+) : ViewModel() {
+    val productPagingFlow = productRepository.getPagedProducts().cachedIn(viewModelScope)
 }
