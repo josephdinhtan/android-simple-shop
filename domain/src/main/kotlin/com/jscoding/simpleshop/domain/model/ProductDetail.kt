@@ -1,6 +1,6 @@
-package com.jscoding.simpleshop.data.remote
+package com.jscoding.simpleshop.domain.model
 
-data class ProductDto (
+data class ProductDetail (
     val id: Int,
     val title: String,
     val description: String,
@@ -10,38 +10,38 @@ data class ProductDto (
     val rating: Double,
     val stock: Int,
     val tags: List<String>,
-    val brand: String?, // Mark as nullable if it can be missing
+    val brand: String?,
     val sku: String,
     val weight: Int,
-    val dimensions: DimensionsDto,
+    val dimensions: Dimensions,
     val warrantyInformation: String,
     val shippingInformation: String,
     val availabilityStatus: String,
-    val reviews: List<ReviewDto>,
+    val reviews: List<Review>,
     val returnPolicy: String,
     val minimumOrderQuantity: Int,
-    val meta: MetaDto,
+    val meta: Meta,
     val images: List<String>,
     val thumbnail: String
 )
 
-data class DimensionsDto(
+data class Dimensions(
     val width: Double,
     val height: Double,
     val depth: Double
 )
 
-data class ReviewDto(
+data class Review(
     val rating: Int,
     val comment: String,
-    val date: String, // Consider parsing to Date/LocalDateTime if needed
+    val date: String,
     val reviewerName: String,
     val reviewerEmail: String
 )
 
-data class MetaDto(
-    val createdAt: String, // Consider parsing
-    val updatedAt: String, // Consider parsing
+data class Meta(
+    val createdAt: String,
+    val updatedAt: String,
     val barcode: String,
     val qrCode: String
 )

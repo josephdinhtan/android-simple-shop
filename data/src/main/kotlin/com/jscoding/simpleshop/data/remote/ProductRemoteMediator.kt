@@ -5,10 +5,11 @@ import androidx.paging.LoadType
 import androidx.paging.PagingState
 import androidx.paging.RemoteMediator
 import androidx.room.withTransaction
-import com.jscoding.simpleshop.data.local.product.ProductDatabase
+import com.jscoding.simpleshop.data.local.ProductDatabase
 import com.jscoding.simpleshop.data.local.product.ProductEntity
 import com.jscoding.simpleshop.data.local.remotekey.RemoteKeyEntity
 import com.jscoding.simpleshop.data.mappers.toProductEntity
+import com.jscoding.simpleshop.data.remote.product.ProductApi
 import kotlinx.coroutines.delay
 import retrofit2.HttpException
 import timber.log.Timber

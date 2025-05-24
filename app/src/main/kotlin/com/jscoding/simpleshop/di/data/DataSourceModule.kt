@@ -1,15 +1,16 @@
-package com.jscoding.simpleshop.data.di
+package com.jscoding.simpleshop.di.data
 
 import android.content.Context
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.room.Room
+import com.jscoding.simpleshop.data.local.ProductDatabase
 import com.jscoding.simpleshop.data.local.product.ProductDao
-import com.jscoding.simpleshop.data.local.product.ProductDatabase
 import com.jscoding.simpleshop.data.local.product.ProductEntity
-import com.jscoding.simpleshop.data.remote.ProductApi
+import com.jscoding.simpleshop.data.local.productdetail.ProductDetailDao
 import com.jscoding.simpleshop.data.remote.ProductRemoteMediator
+import com.jscoding.simpleshop.data.remote.product.ProductApi
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -36,6 +37,10 @@ object DataSourceModule {
     @Provides
     @Singleton
     fun provideProductDao(db: ProductDatabase): ProductDao = db.productDao()
+
+    @Provides
+    @Singleton
+    fun provideProductDetailDao(db: ProductDatabase): ProductDetailDao = db.productDetailDao()
 
     @Provides
     @Singleton

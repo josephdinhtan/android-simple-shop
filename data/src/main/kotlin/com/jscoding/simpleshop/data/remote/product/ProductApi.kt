@@ -1,6 +1,7 @@
-package com.jscoding.simpleshop.data.remote
+package com.jscoding.simpleshop.data.remote.product
 
 import retrofit2.http.GET
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface ProductApi {
@@ -11,8 +12,8 @@ interface ProductApi {
         @Query("skip") skip: Int
     ): ProductsApiResponse
 
-    suspend fun getProductById(id: Int): ProductDto
-    suspend fun getProductsByCategory(category: String): List<ProductDto>
+    @GET("products/{id}")
+    suspend fun getProductById(@Path("id") id: Int): ProductDto
 
     companion object {
         const val BASE_URL = "https://dummyjson.com/"

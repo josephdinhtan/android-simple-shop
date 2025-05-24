@@ -7,9 +7,8 @@ internal fun getPreviewProduct(): Product {
         id = 1,
         title = "Product Tittle",
         price = 10.0,
-        description = "Product Description",
         category = "Category",
-        imageUrl = "https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg",
+        thumbnailUrl = "https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg",
         rating = 4.5
     )
 }

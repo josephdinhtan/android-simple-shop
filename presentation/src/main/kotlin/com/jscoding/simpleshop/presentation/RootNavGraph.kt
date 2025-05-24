@@ -2,11 +2,14 @@ package com.jscoding.simpleshop.presentation
 
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.jddev.simpletouch.ui.foundation.StUiDoubleBackHandler
 import com.jddev.simpletouch.ui.navigation.StUiNavHost
 import com.jscoding.simpleshop.presentation.home.HomeScreen
+import com.jscoding.simpleshop.presentation.product.ProductScreen
 
 @Composable
 fun RootNavGraph(
@@ -23,6 +26,15 @@ fun RootNavGraph(
     ) {
         composable("nav_home") {
             HomeScreen()
+        }
+        composable("nav_product/{product_id}",
+            arguments = listOf(
+                navArgument("product_id") {
+                    type = NavType.IntType
+                }
+            )
+        ) {
+            ProductScreen()
         }
     }
 }
