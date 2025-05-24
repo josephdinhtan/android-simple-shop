@@ -1,4 +1,4 @@
-package com.jscoding.simpleshop.presentation.product
+package com.jscoding.simpleshop.presentation.productdetail
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
@@ -14,7 +14,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class ProductViewModel @Inject constructor(
+class ProductDetailViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
     private val getProductByIdUseCase: GetProductDetailUseCase
 ): ViewModel() {
@@ -34,11 +34,11 @@ class ProductViewModel @Inject constructor(
             _uiState.value = UiState.Error("Invalid product ID")
         } else {
             _uiState.value = UiState.Loading
-            loadProduct(productId)
+            loadProductAndEmitUiState(productId)
         }
     }
 
-    private fun loadProduct(productId: Int) {
+    private fun loadProductAndEmitUiState(productId: Int) {
         viewModelScope.launchIo {
             val productDetail = getProductByIdUseCase(productId)
             if (productDetail != null) {

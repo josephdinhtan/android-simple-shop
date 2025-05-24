@@ -9,13 +9,12 @@ import androidx.navigation.navArgument
 import com.jddev.simpletouch.ui.foundation.StUiDoubleBackHandler
 import com.jddev.simpletouch.ui.navigation.StUiNavHost
 import com.jscoding.simpleshop.presentation.home.HomeScreen
-import com.jscoding.simpleshop.presentation.product.ProductScreen
+import com.jscoding.simpleshop.presentation.productdetail.ProductDetailScreen
 
 @Composable
 fun RootNavGraph(
     rootNavController: NavHostController = rememberNavController(),
 ) {
-
     StUiDoubleBackHandler(
         toastMessage = "Press again to exit the app",
     )
@@ -25,7 +24,11 @@ fun RootNavGraph(
         startDestination = "nav_home",
     ) {
         composable("nav_home") {
-            HomeScreen()
+            HomeScreen(
+                navigateToProductDetail = { productId ->
+                    rootNavController.navigate("nav_product/$productId")
+                }
+            )
         }
         composable("nav_product/{product_id}",
             arguments = listOf(
@@ -34,7 +37,11 @@ fun RootNavGraph(
                 }
             )
         ) {
-            ProductScreen()
+            ProductDetailScreen(
+                onBack = {
+                    rootNavController.navigateUp()
+                }
+            )
         }
     }
 }

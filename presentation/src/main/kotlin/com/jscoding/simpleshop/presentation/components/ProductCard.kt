@@ -60,7 +60,7 @@ fun ProductCard(
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(180.dp),
-                contentScale = ContentScale.Crop
+                contentScale = ContentScale.FillWidth
             )
             Column(modifier = Modifier.padding(12.dp)) {
                 Text(
