@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -31,6 +32,8 @@ fun HomeScreen(
     val scrollBehavior = stUiEnterAlwaysScrollBehavior()
     val navBackStackEntry by homeNavController.currentBackStackEntryAsState()
     val currentRoute = navBackStackEntry?.destination?.route
+
+    val navigationBarColor = MaterialTheme.colorScheme.surface
     Scaffold(
         contentWindowInsets = WindowInsets.safeDrawing,
         topBar = {
@@ -55,7 +58,7 @@ fun HomeScreen(
             }
         },
         bottomBar = {
-            HomeBottomNavigationBar(navController = homeNavController)
+            HomeBottomNavigationBar(navController = homeNavController, backgroundColor = navigationBarColor)
         }
     ) { innerPadding ->
         NavHost(
