@@ -8,6 +8,7 @@ import androidx.room.Room
 import com.jscoding.simpleshop.data.local.ProductDatabase
 import com.jscoding.simpleshop.data.local.product.ProductDao
 import com.jscoding.simpleshop.data.local.product.ProductEntity
+import com.jscoding.simpleshop.data.local.productcategory.ProductCategoryDao
 import com.jscoding.simpleshop.data.local.productdetail.ProductDetailDao
 import com.jscoding.simpleshop.data.remote.ProductRemoteMediator
 import com.jscoding.simpleshop.data.remote.product.ProductApi
@@ -41,6 +42,10 @@ object DataSourceModule {
     @Provides
     @Singleton
     fun provideProductDetailDao(db: ProductDatabase): ProductDetailDao = db.productDetailDao()
+
+    @Provides
+    @Singleton
+    fun provideProductCategoryDao(db: ProductDatabase): ProductCategoryDao = db.productCategoryDao()
 
     @Provides
     @Singleton

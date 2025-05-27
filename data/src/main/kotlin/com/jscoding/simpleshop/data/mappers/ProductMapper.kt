@@ -23,6 +23,17 @@ fun ProductDto.toProductEntity(): ProductEntity {
     )
 }
 
+fun ProductDto.toProduct(): Product {
+    return Product(
+        id = id,
+        title = title,
+        price = price,
+        category = category,
+        thumbnailUrl = thumbnail,
+        rating = rating
+    )
+}
+
 fun ProductEntity.toProduct(): Product {
     return Product(
         id = id,

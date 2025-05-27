@@ -2,6 +2,7 @@ package com.jscoding.simpleshop.di.data
 
 import androidx.paging.Pager
 import com.jscoding.simpleshop.data.local.product.ProductEntity
+import com.jscoding.simpleshop.data.local.productcategory.ProductCategoryDao
 import com.jscoding.simpleshop.data.local.productdetail.ProductDetailDao
 import com.jscoding.simpleshop.data.remote.product.ProductApi
 import com.jscoding.simpleshop.data.repository.ProductRepositoryImpl
@@ -21,11 +22,13 @@ object RepositoryModule {
     fun provideProductRepository(
         pager: Pager<Int, ProductEntity>,
         productApi: ProductApi,
-        productDetailDao: ProductDetailDao
+        productDetailDao: ProductDetailDao,
+        productCategoryDao: ProductCategoryDao,
     ): ProductRepository {
         return ProductRepositoryImpl(
             productApi,
             productDetailDao,
+            productCategoryDao,
             pager
         )
     }

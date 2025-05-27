@@ -15,6 +15,12 @@ interface ProductApi {
     @GET("products/{id}")
     suspend fun getProductById(@Path("id") id: Int): ProductDto
 
+    @GET("products/categories")
+    suspend fun getProductCategories(): List<ProductCategoryDto>
+
+    @GET("products/category/{category}")
+    suspend fun getProductsByCategory(@Path("category") category: String): ProductsApiResponse
+
     companion object {
         const val BASE_URL = "https://dummyjson.com/"
     }

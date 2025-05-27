@@ -4,7 +4,9 @@ import com.jscoding.simpleshop.domain.repository.CartRepository
 import com.jscoding.simpleshop.domain.repository.ProductRepository
 import com.jscoding.simpleshop.domain.usecase.AddToCartUseCase
 import com.jscoding.simpleshop.domain.usecase.GetPagedProductsUseCase
+import com.jscoding.simpleshop.domain.usecase.GetProductCategoriesUseCase
 import com.jscoding.simpleshop.domain.usecase.GetProductDetailUseCase
+import com.jscoding.simpleshop.domain.usecase.GetProductsByCategoryUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -33,5 +35,19 @@ object UseCaseModule {
         cartRepository: CartRepository
     ): AddToCartUseCase {
         return AddToCartUseCase(cartRepository)
+    }
+
+    @Provides
+    fun provideGetProductCategoriesUseCase(
+        repository: ProductRepository
+    ): GetProductCategoriesUseCase {
+        return GetProductCategoriesUseCase(repository)
+    }
+
+    @Provides
+    fun provideGetProductsByCategoryUseCase(
+        repository: ProductRepository
+    ): GetProductsByCategoryUseCase {
+        return GetProductsByCategoryUseCase(repository)
     }
 }

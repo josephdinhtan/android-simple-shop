@@ -19,6 +19,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextOverflow
@@ -76,11 +77,12 @@ fun ProductCard(
                         modifier = Modifier.padding(top = 4.dp)
                     )
                     Spacer(modifier = Modifier.weight(1f))
-                    Icon(Icons.Default.Star, "Star")
+                    Icon(Icons.Default.Star, "Star", tint = Color(0xFFFB6C0A))
                     Spacer(modifier = Modifier.width(4.dp))
                     Text(
                         text = product.rating.toString(),
-                        modifier = Modifier.padding(start = 4.dp)
+                        modifier = Modifier.padding(start = 4.dp),
+                        color = Color(0xFFFB6C0A)
                     )
                 }
             }

@@ -4,13 +4,17 @@ import androidx.paging.Pager
 import androidx.paging.PagingData
 import androidx.paging.map
 import com.jscoding.simpleshop.data.local.product.ProductEntity
+import com.jscoding.simpleshop.data.local.productcategory.ProductCategoryDao
 import com.jscoding.simpleshop.data.local.productdetail.ProductDetailDao
 import com.jscoding.simpleshop.data.local.productdetail.ProductDetailEntity
 import com.jscoding.simpleshop.data.mappers.toProduct
+import com.jscoding.simpleshop.data.mappers.toProductCategory
+import com.jscoding.simpleshop.data.mappers.toProductCategoryEntities
 import com.jscoding.simpleshop.data.mappers.toProductDetail
 import com.jscoding.simpleshop.data.mappers.toProductDetailEntity
 import com.jscoding.simpleshop.data.remote.product.ProductApi
 import com.jscoding.simpleshop.domain.model.Product
+import com.jscoding.simpleshop.domain.model.ProductCategory
 import com.jscoding.simpleshop.domain.model.ProductDetail
 import com.jscoding.simpleshop.domain.repository.ProductRepository
 import kotlinx.coroutines.flow.Flow
@@ -20,6 +24,7 @@ import javax.inject.Inject
 class ProductRepositoryImpl @Inject constructor(
     private val productApi: ProductApi,
     private val productDetailDao: ProductDetailDao,
+    private val productCategoryDao: ProductCategoryDao,
     private val pager: Pager<Int, ProductEntity>,
 ) : ProductRepository {
 
@@ -52,8 +57,34 @@ class ProductRepositoryImpl @Inject constructor(
         }
     }
 
+    override suspend fun getProductCategories(): List<ProductCategory> {
+        val oneDayMillis = 24 * 60 * 60 * 1000L
+        val threshold = System.currentTimeMillis() - oneDayMillis
+        productCategoryDao.deleteOlderThan(threshold)
+
+        val cached = productCategoryDao.getAll()
+        if (cached.isNotEmpty()) {
+            return cached.map { it.toProductCategory() }
+        }
+
+        return try {
+            val remote = productApi.getProductCategories()
+            val now = System.currentTimeMillis()
+            val entities = remote.map { it.toProductCategoryEntities(now) }
+            productCategoryDao.upsertAll(entities)
+            entities.map { it.toProductCategory() }
+        } catch (e: Exception) {
+            emptyList()
+        }
+    }
+
     override suspend fun getProductsByCategory(category: String): List<Product> {
-        TODO("Not yet implemented")
+        return try {
+            val response = productApi.getProductsByCategory(category)
+            response.products.map { it.toProduct() }
+        } catch (e: Exception) {
+            emptyList()
+        }
     }
 
     private fun isStale(entity: ProductDetailEntity): Boolean {

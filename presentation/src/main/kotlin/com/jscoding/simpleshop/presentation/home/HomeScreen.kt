@@ -14,7 +14,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.jddev.simpletouch.ui.foundation.topappbar.StUiTopAppBar
-import com.jddev.simpletouch.ui.foundation.topappbar.stUiPinnedScrollBehavior
+import com.jddev.simpletouch.ui.foundation.topappbar.stUiEnterAlwaysScrollBehavior
 import com.jscoding.simpleshop.presentation.components.BottomNavTab
 import com.jscoding.simpleshop.presentation.components.HomeBottomNavigationBar
 import com.jscoding.simpleshop.presentation.home.catalog.CatalogScreenContent
@@ -28,7 +28,7 @@ fun HomeScreen(
     homeNavController: NavHostController = rememberNavController(),
     navigateToProductDetail: (productId: Int) -> Unit,
 ) {
-    val scrollBehavior = stUiPinnedScrollBehavior()
+    val scrollBehavior = stUiEnterAlwaysScrollBehavior()
     val navBackStackEntry by homeNavController.currentBackStackEntryAsState()
     val currentRoute = navBackStackEntry?.destination?.route
     Scaffold(
@@ -41,7 +41,12 @@ fun HomeScreen(
                         title = "Catalog"
                     )
                 }
-                null -> {}
+                null -> {
+                    StUiTopAppBar(
+                        scrollBehavior = scrollBehavior,
+                        title = "Unexpected Error"
+                    )
+                }
                 else -> {
                     StUiTopAppBar(
                         title = currentRoute.toString(),
