@@ -4,7 +4,6 @@ import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -17,7 +16,7 @@ import androidx.navigation.compose.rememberNavController
 import com.jddev.simpletouch.ui.foundation.topappbar.StUiTopAppBar
 import com.jddev.simpletouch.ui.foundation.topappbar.stUiEnterAlwaysScrollBehavior
 import com.jscoding.simpleshop.presentation.components.BottomNavTab
-import com.jscoding.simpleshop.presentation.components.HomeBottomNavigationBar
+import com.jscoding.simpleshop.presentation.components.HomeBottomNavBar
 import com.jscoding.simpleshop.presentation.home.catalog.CatalogScreenContent
 import com.jscoding.simpleshop.presentation.home.favorite.FavoriteScreenContent
 import com.jscoding.simpleshop.presentation.home.profile.ProfileScreenContent
@@ -33,7 +32,6 @@ fun HomeScreen(
     val navBackStackEntry by homeNavController.currentBackStackEntryAsState()
     val currentRoute = navBackStackEntry?.destination?.route
 
-    val navigationBarColor = MaterialTheme.colorScheme.surface
     Scaffold(
         contentWindowInsets = WindowInsets.safeDrawing,
         topBar = {
@@ -58,7 +56,7 @@ fun HomeScreen(
             }
         },
         bottomBar = {
-            HomeBottomNavigationBar(navController = homeNavController, backgroundColor = navigationBarColor)
+            HomeBottomNavBar(navController = homeNavController)
         }
     ) { innerPadding ->
         NavHost(
